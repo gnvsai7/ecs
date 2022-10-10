@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: sg-fargate-eks-deployment
+ labels:
+   app: sg-fargate-eks-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sg-fargate-eks-app
+  template:
+    metadata:
+      labels:
+        app: sg-fargate-eks-app
+    spec:
+     containers:
+     - name: sg-fargate-eks-app
+       image: gnvsai2020/nodejs-fargate:latest
+       ports:
+       - containerPort: 80

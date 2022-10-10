@@ -1,0 +1,59 @@
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: ingress-demo
+#   annotations:
+#     kubernetes.io/ingress.class: alb
+#     alb.ingress.kubernetes.io/target-type: ip
+#     alb.ingress.kubernetes.io/scheme: internet-facing
+#     alb.ingress.kubernetes.io/subnets: subnet-001c66bc6ead0d994, subnet-0cf7fee021b551f5b
+#     alb.ingress.kubernetes.io/security-groups: sg-0c989fa2e9eeb78
+#     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
+#     alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+#     alb.ingress.kubernetes.io/healthcheck-path: /app
+#     alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+#     alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+#     alb.ingress.kubernetes.io/success-codes: '200'
+#     alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+#     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - path: /*
+#         backend:
+#           serviceName: sg-fargate-eks-service
+#           servicePort: 80
+
+
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: node
+  # namespace: "default"
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/subnets: subnet-001c66bc6ead0d994, subnet-0cf7fee021b551f5b
+    alb.ingress.kubernetes.io/security-groups: sg-0c989fa2e9eeb789a
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/healthcheck-path: /app
+    # alb.ingress.kubernetes.io/healthcheck-interval-seconds: '35'
+    # alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '15'
+    # alb.ingress.kubernetes.io/success-codes: '200'
+    # alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    # alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+
+  # labels:
+  #   app: react-app
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /app
+        backend:
+          serviceName: sg-fargate-eks-service
+          servicePort: 80
